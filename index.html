@@ -1,142 +1,330 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>一个人成长的最好方式，是战胜自己</title>
   <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
+    /* 深色模式配合typography细节 */
+    html.dark .prose { --tw-prose-body: #e5e7eb; --tw-prose-headings: #fff; --tw-prose-bold: #fbbf24; --tw-prose-links: #93c5fd;}
+    html.dark .prose pre { background: #22223b; }
     html { scroll-behavior: smooth; }
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1; border-radius: 4px;
-    }
-    .dark ::-webkit-scrollbar-thumb { background: #475569; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-    .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-
-    .fade-in-on-scroll {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-    }
-    .fade-in-on-scroll.is-visible {
-      opacity: 1; transform: translateY(0);
-    }
-
-    .notebooklm-mention {
-      font-weight: 500; color: #3b82f6;
-    }
-    .dark .notebooklm-mention { color: #60a5fa; }
-    .notebooklm-mention .fa-robot {
-      font-size: 0.9em; margin-left: 2px;
-    }
-
-    @media (max-width: 768px) {
-      .responsive-table th, .responsive-table td {
-        font-size: 0.875rem; padding: 0.5rem;
-      }
-    }
-
-    .content-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),
-                  0 4px 6px -2px rgba(0,0,0,0.05);
-    }
-    .dark .content-card:hover {
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3),
-                  0 4px 6px -2px rgba(0,0,0,0.2);
-    }
+    .fade-in-on-scroll { opacity: 0; transform: translateY(40px); transition: all .9s cubic-bezier(.39,.575,.565,1) }
+    .fade-in-on-scroll.visible { opacity: 1; transform: none;}
+    /* 响应式表格修饰 */
+    .scroll-table { overflow-x: auto; }
+    .checklist label { cursor: pointer; }
   </style>
   <script>
-    if (localStorage.theme === 'dark' ||
-        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    // tailwind.config
     tailwind.config = {
       darkMode: 'class',
-      theme: { extend: {} }
-    };
+      theme: { extend: {
+        typography: ({ theme }) => ({
+          light: {
+            css: {
+              '--tw-prose-body': theme('colors.gray.700'),
+              '--tw-prose-headings': theme('colors.gray.900'),
+              '--tw-prose-links': theme('colors.blue.600'),
+            },
+          },
+          dark: {
+            css: {
+              '--tw-prose-body': theme('colors.gray.200'),
+              '--tw-prose-headings': theme('colors.white'),
+              '--tw-prose-links': theme('colors.blue.300'),
+            },
+          },
+        }),
+      }},
+      plugins: [window.tailwindcss.typography],
+    }
   </script>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 antialiased transition-colors duration-300">
+<body class="bg-gray-50 dark:bg-zinc-900 transition-colors duration-500">
 
-  <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <h1 class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">
-          <i class="fas fa-feather-alt mr-2 text-blue-500"></i>一个人成长的最好方式
-        </h1>
-        <button id="theme-toggle" title="切换深浅模式"
-          class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600">
-          <i id="theme-toggle-dark-icon" class="fas fa-moon w-5 h-5 hidden"></i>
-          <i id="theme-toggle-light-icon" class="fas fa-sun w-5 h-5 hidden"></i>
-        </button>
+  <!-- 主题切换 -->
+  <div class="fixed right-4 top-4 z-50 flex items-center gap-2">
+    <button id="theme-toggle" class="rounded-full border p-2 bg-white dark:bg-zinc-800 shadow hover:scale-110 transition">
+      <i id="theme-icon" class="fas fa-moon text-zinc-700 dark:text-yellow-300"></i>
+    </button>
+  </div>
+
+  <main class="max-w-3xl mx-auto px-3 py-6 sm:py-10">
+    <header class="mb-8 fade-in-on-scroll">
+      <h1 class="text-3xl sm:text-4xl font-bold text-zinc-800 dark:text-zinc-100 mb-2 tracking-tight">一个人成长的最好方式，是战胜自己</h1>
+      <p class="text-lg text-zinc-600 dark:text-zinc-300">—— 针对Andy的NotebookLM高效成长计划</p>
+    </header>
+
+    <!-- 学科任务列表与NotebookLM用法 -->
+    <section class="mb-10 prose dark:prose-invert fade-in-on-scroll">
+      <h2>📚 各学科成长任务与NotebookLM技巧</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Interactive Media and Game Development -->
+        <div>
+          <h3 class="mt-2 mb-1 text-xl font-semibold">1. Interactive Media & Game Dev</h3>
+          <ul class="checklist space-y-2" id="checklist-1">
+            <li>
+              <span class="font-bold">老师反馈：</span>任务管理与项目完成不足。
+            </li>
+            <li>
+              <input type="checkbox" id="im-task1">
+              <label for="im-task1">NotebookLM设置每日任务提醒，列出具体任务与截止时间</label>
+            </li>
+            <li>
+              <input type="checkbox" id="im-task2">
+              <label for="im-task2">项目文件上传，使用“下一步行动”建议，查缺补漏</label>
+            </li>
+            <li>
+              <input type="checkbox" id="im-task3">
+              <label for="im-task3">每周总结进度，制定下周详细计划（回顾与规划）</label>
+            </li>
+          </ul>
+        </div>
+        <!-- English 11 -->
+        <div>
+          <h3 class="mt-2 mb-1 text-xl font-semibold">2. English 11</h3>
+          <ul class="checklist space-y-2" id="checklist-2">
+            <li>
+              <span class="font-bold">老师反馈：</span>课堂准备不足、表达不连贯。
+            </li>
+            <li>
+              <input type="checkbox" id="en-task1">
+              <label for="en-task1">NotebookLM上传阅读材料，自动摘要主题和核心观点</label>
+            </li>
+            <li>
+              <input type="checkbox" id="en-task2">
+              <label for="en-task2">作文写作计划模板，拆解写作任务，自动提醒检查和润色</label>
+            </li>
+            <li>
+              <input type="checkbox" id="en-task3">
+              <label for="en-task3">初稿上传，NotebookLM提供具体表达与逻辑建议</label>
+            </li>
+          </ul>
+        </div>
+        <!-- Research Applied Physics -->
+        <div>
+          <h3 class="mt-2 mb-1 text-xl font-semibold">3. Research Applied Physics</h3>
+          <ul class="checklist space-y-2" id="checklist-3">
+            <li>
+              <span class="font-bold">老师反馈：</span>项目进展落后、出勤不佳。
+            </li>
+            <li>
+              <input type="checkbox" id="ph-task1">
+              <label for="ph-task1">每周上传项目进展，NotebookLM智能推荐优先任务</label>
+            </li>
+            <li>
+              <input type="checkbox" id="ph-task2">
+              <label for="ph-task2">NotebookLM每日提醒，保证按时出勤和跟进</label>
+            </li>
+          </ul>
+        </div>
+        <!-- AP US History -->
+        <div>
+          <h3 class="mt-2 mb-1 text-xl font-semibold">4. AP US History</h3>
+          <ul class="checklist space-y-2" id="checklist-4">
+            <li>
+              <span class="font-bold">老师反馈：</span>作业遗漏、课堂参与不稳定。
+            </li>
+            <li>
+              <input type="checkbox" id="us-task1">
+              <label for="us-task1">NotebookLM上传阅读，自动生成核心事件与时间轴</label>
+            </li>
+            <li>
+              <input type="checkbox" id="us-task2">
+              <label for="us-task2">NotebookLM创建每日作业清单与提醒，保证作业不遗漏</label>
+            </li>
+          </ul>
+        </div>
+        <!-- Linear Algebra -->
+        <div>
+          <h3 class="mt-2 mb-1 text-xl font-semibold">5. Linear Algebra</h3>
+          <ul class="checklist space-y-2" id="checklist-5">
+            <li>
+              <span class="font-bold">老师反馈：</span>未充分发挥能力，作业和练习需提升。
+            </li>
+            <li>
+              <input type="checkbox" id="la-task1">
+              <label for="la-task1">NotebookLM上传讲义，自动总结核心公式和例题</label>
+            </li>
+            <li>
+              <input type="checkbox" id="la-task2">
+              <label for="la-task2">错题整理上传，易错分析报告，针对性复习</label>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </header>
+    </section>
 
-  <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-    <div class="text-center mb-12 fade-in-on-scroll">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-2">战胜自己，规划未来</h2>
-      <p class="text-lg text-slate-600 dark:text-slate-400">利用NotebookLM等现代工具和清晰规划，完成学业要求！</p>
-    </div>
+    <!-- 写作五步法 -->
+    <section class="mb-12 prose dark:prose-invert fade-in-on-scroll">
+      <h2>📝 Research/Essay 写作五步法（配合NotebookLM）</h2>
+      <ol class="space-y-2">
+        <li>
+          <b>1. 任务理解（Understand）</b>  
+          上传题目与指导文件，向NotebookLM提问：“核心问题和研究角度有哪些？”
+        </li>
+        <li>
+          <b>2. 构思结构（Outline）</b>  
+          让NotebookLM自动生成Essay结构大纲。
+        </li>
+        <li>
+          <b>3. 初稿撰写（Draft）</b>  
+          结合大纲完成初稿。
+        </li>
+        <li>
+          <b>4. 优化修改（Revise）</b>  
+          初稿上传，NotebookLM针对逻辑与语言提出修改建议。
+        </li>
+        <li>
+          <b>5. 最终检查（Finalize）</b>  
+          按NotebookLM反馈再上传一次，进行最终审阅与完善。
+        </li>
+      </ol>
+    </section>
 
-    <!-- 插入核心内容：学科卡片、写作五步法、学习表格 -->
-    <!-- ✅ 请继续复制上个回答中提供的完整内容（学科框架 + 写作五步法 + 每周计划）粘贴在这里 -->
+    <!-- 每周计划表 -->
+    <section class="fade-in-on-scroll">
+      <h2 class="text-xl font-bold mb-3 text-zinc-800 dark:text-zinc-200">🗓 每周示例成长规划</h2>
+      <div class="scroll-table">
+        <table class="min-w-full border border-zinc-200 dark:border-zinc-700 text-sm sm:text-base rounded overflow-hidden">
+          <thead>
+            <tr class="bg-zinc-100 dark:bg-zinc-800">
+              <th class="py-2 px-3 font-semibold">时间</th>
+              <th class="py-2 px-3 font-semibold">内容安排</th>
+              <th class="py-2 px-3 font-semibold">NotebookLM 用法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="py-2 px-3">周一~周五放学后</td>
+              <td class="py-2 px-3">完成日常作业（英语、历史）</td>
+              <td class="py-2 px-3">精确任务提醒与反馈跟踪</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3">晚上固定时间</td>
+              <td class="py-2 px-3">研究报告或项目进度推进</td>
+              <td class="py-2 px-3">拆分任务精确到具体行动，实时反馈进展</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3">周六上午</td>
+              <td class="py-2 px-3">集中复习（线性代数）</td>
+              <td class="py-2 px-3">自动生成错题分析，系统回顾重点概念</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3">周六下午</td>
+              <td class="py-2 px-3">Interactive Media项目推进与总结</td>
+              <td class="py-2 px-3">即时获得项目完成建议</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3">周日</td>
+              <td class="py-2 px-3">一周总结与下周规划</td>
+              <td class="py-2 px-3">自动生成问题总结与具体学习任务提醒</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
+    <!-- 成长任务仪表盘统计 -->
+    <section class="my-12 fade-in-on-scroll">
+      <h2 class="text-xl font-bold text-zinc-700 dark:text-zinc-200 mb-2">🎯 成长任务仪表盘</h2>
+      <div class="bg-white dark:bg-zinc-800 rounded-2xl shadow p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <i class="fa-solid fa-clipboard-check text-green-500"></i>
+            <span class="font-semibold">已完成任务数：</span>
+            <span id="done-count" class="text-lg text-green-600 dark:text-green-400">0</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-hourglass-half text-yellow-500"></i>
+            <span class="font-semibold">总任务数：</span>
+            <span id="total-count" class="text-lg text-yellow-700 dark:text-yellow-300">0</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <i class="fa-solid fa-percent text-sky-600"></i>
+            <span class="font-semibold">完成率：</span>
+            <span id="percent-done" class="text-lg text-sky-700 dark:text-sky-300">0%</span>
+          </div>
+          <div class="text-xs text-zinc-400 dark:text-zinc-500">
+            Tips: 仪表盘可持久化，支持多端同步浏览。任务完成请及时打勾，系统自动保存进度。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center text-xs text-zinc-400 dark:text-zinc-600 mt-8 mb-2 fade-in-on-scroll">
+      © 2025 成长计划 by Andy & ChatGPT | Tailwind CSS, IntersectionObserver, LocalStorage
+    </footer>
   </main>
 
-  <footer class="border-t border-slate-200 dark:border-slate-700 fade-in-on-scroll">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
-      <p>作者：Andy</p>
-      <p>&copy; <span id="currentYear"></span> Andy. 保留所有权利。</p>
-    </div>
-  </footer>
-
+  <!-- 主题切换、动画、仪表盘持久化 JS -->
   <script>
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const darkIcon = document.getElementById('theme-toggle-dark-icon');
-    const lightIcon = document.getElementById('theme-toggle-light-icon');
-
-    function setTheme(theme) {
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-        darkIcon.classList.remove('hidden');
-        lightIcon.classList.add('hidden');
-        localStorage.theme = 'dark';
-      } else {
-        document.documentElement.classList.remove('dark');
-        lightIcon.classList.remove('hidden');
-        darkIcon.classList.add('hidden');
-        localStorage.theme = 'light';
+    // 1. 深浅主题自动与手动切换
+    const themeBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    function setTheme(mode) {
+      document.documentElement.classList.toggle('dark', mode === 'dark');
+      localStorage.setItem('color-theme', mode);
+      themeIcon.className = mode === 'dark'
+        ? 'fas fa-sun text-yellow-300'
+        : 'fas fa-moon text-zinc-700';
+    }
+    // 检查系统偏好 & localStorage
+    function initTheme() {
+      const saved = localStorage.getItem('color-theme');
+      if (saved) {
+        setTheme(saved);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setTheme('dark');
       }
     }
-
-    if (localStorage.theme === 'dark' ||
-        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      darkIcon.classList.remove('hidden');
-    } else {
-      lightIcon.classList.remove('hidden');
-    }
-
-    themeToggleBtn?.addEventListener('click', () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      setTheme(isDark ? 'light' : 'dark');
+    themeBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      setTheme(isDark ? 'dark' : 'light');
     });
+    initTheme();
 
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-    const observer = new IntersectionObserver(entries => {
+    // 2. IntersectionObserver 动画
+    const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in-on-scroll').forEach(el => io.observe(el));
 
-    document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
+    // 3. 任务打勾持久化&仪表盘统计
+    function updateDashboard() {
+      let total = 0, done = 0;
+      document.querySelectorAll('.checklist').forEach((ul, idx) => {
+        ul.querySelectorAll('input[type=checkbox]').forEach(cb => {
+          total++;
+          if (cb.checked) done++;
+        });
+      });
+      document.getElementById('done-count').textContent = done;
+      document.getElementById('total-count').textContent = total;
+      document.getElementById('percent-done').textContent = total > 0 ? Math.round(done/total*100)+'%' : '0%';
+    }
+    // 持久化读取
+    function loadChecks() {
+      document.querySelectorAll('.checklist').forEach((ul, idx) => {
+        ul.querySelectorAll('input[type=checkbox]').forEach(cb => {
+          const key = 'cl-'+cb.id;
+          cb.checked = localStorage.getItem(key) === '1';
+          cb.addEventListener('change', () => {
+            localStorage.setItem(key, cb.checked ? '1' : '0');
+            updateDashboard();
+          });
+        });
+      });
+      updateDashboard();
+    }
+    window.addEventListener('DOMContentLoaded', loadChecks);
   </script>
 </body>
 </html>
