@@ -11,46 +11,42 @@
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
+      background: #cbd5e1; border-radius: 4px;
     }
     .dark ::-webkit-scrollbar-thumb { background: #475569; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }        
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
     .fade-in-on-scroll {
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(20px);
       transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     }
     .fade-in-on-scroll.is-visible {
-      opacity: 1;
-      transform: translateY(0);
+      opacity: 1; transform: translateY(0);
     }
 
     .notebooklm-mention {
-      font-weight: 500;
-      color: #3b82f6;
+      font-weight: 500; color: #3b82f6;
     }
     .dark .notebooklm-mention { color: #60a5fa; }
     .notebooklm-mention .fa-robot {
-      font-size: 0.9em;
-      margin-left: 2px;
+      font-size: 0.9em; margin-left: 2px;
     }
 
     @media (max-width: 768px) {
       .responsive-table th, .responsive-table td {
-        font-size: 0.875rem;
-        padding: 0.5rem;
+        font-size: 0.875rem; padding: 0.5rem;
       }
     }
 
     .content-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),
+                  0 4px 6px -2px rgba(0,0,0,0.05);
     }
     .dark .content-card:hover {
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3),
+                  0 4px 6px -2px rgba(0,0,0,0.2);
     }
   </style>
   <script>
@@ -60,52 +56,10 @@
     } else {
       document.documentElement.classList.remove('dark');
     }
-
     tailwind.config = {
       darkMode: 'class',
-      theme: {
-        extend: {
-          typography: (theme) => ({
-            DEFAULT: {
-              css: {
-                color: theme('colors.slate.700'),
-                a: {
-                  color: theme('colors.blue.600'),
-                  '&:hover': { color: theme('colors.blue.700') }
-                },
-                strong: { color: theme('colors.slate.800') },
-                h1: { color: theme('colors.slate.900') },
-                h2: { color: theme('colors.slate.900') },
-                h3: { color: theme('colors.slate.800') },
-                h4: { color: theme('colors.slate.800') },
-                blockquote: {
-                  color: theme('colors.slate.600'),
-                  borderLeftColor: theme('colors.slate.300')
-                }
-              }
-            },
-            dark: {
-              css: {
-                color: theme('colors.slate.300'),
-                a: {
-                  color: theme('colors.blue.400'),
-                  '&:hover': { color: theme('colors.blue.300') }
-                },
-                strong: { color: theme('colors.slate.200') },
-                h1: { color: theme('colors.slate.100') },
-                h2: { color: theme('colors.slate.100') },
-                h3: { color: theme('colors.slate.200') },
-                h4: { color: theme('colors.slate.200') },
-                blockquote: {
-                  color: theme('colors.slate.400'),
-                  borderLeftColor: theme('colors.slate.700')
-                }
-              }
-            }
-          })
-        }
-      }
-    }
+      theme: { extend: {} }
+    };
   </script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 antialiased transition-colors duration-300">
@@ -116,8 +70,8 @@
         <h1 class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">
           <i class="fas fa-feather-alt mr-2 text-blue-500"></i>一个人成长的最好方式
         </h1>
-        <button id="theme-toggle" type="button" title="切换深色/浅色模式"
-          class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 transition-colors duration-200">
+        <button id="theme-toggle" title="切换深浅模式"
+          class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600">
           <i id="theme-toggle-dark-icon" class="fas fa-moon w-5 h-5 hidden"></i>
           <i id="theme-toggle-light-icon" class="fas fa-sun w-5 h-5 hidden"></i>
         </button>
@@ -130,112 +84,9 @@
       <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-2">战胜自己，规划未来</h2>
       <p class="text-lg text-slate-600 dark:text-slate-400">利用NotebookLM等现代工具和清晰规划，完成学业要求！</p>
     </div>
-<!-- 学科整理框架 -->
-<section id="subject-framework" class="mb-16">
-  <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center fade-in-on-scroll">
-    <i class="fas fa-graduation-cap mr-3 text-blue-500"></i>一、各学科整理框架
-  </h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="content-card bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 transition-all duration-300 fade-in-on-scroll">
-      <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
-        <i class="fas fa-gamepad mr-2 text-purple-500"></i>Interactive Media and Game Development
-      </h3>
-      <ul class="list-disc list-inside text-sm text-slate-600 dark:text-slate-400 space-y-1">
-        <li>每日任务由 <span class="notebooklm-mention">NotebookLM</span><i class="fas fa-robot notebooklm-mention"></i> 提醒。</li>
-        <li>上传项目文档，获取阶段性建议。</li>
-      </ul>
-    </div>
-    <div class="content-card bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 transition-all duration-300 fade-in-on-scroll">
-      <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
-        <i class="fas fa-book-open mr-2 text-green-500"></i>English 11
-      </h3>
-      <ul class="list-disc list-inside text-sm text-slate-600 dark:text-slate-400 space-y-1">
-        <li>上传阅读材料并提问“主题与中心论点”。</li>
-        <li>写作分阶段管理，明确时间节点。</li>
-      </ul>
-    </div>
-    <div class="content-card bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 transition-all duration-300 fade-in-on-scroll">
-      <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
-        <i class="fas fa-atom mr-2 text-red-500"></i>Research Applied Physics
-      </h3>
-      <ul class="list-disc list-inside text-sm text-slate-600 dark:text-slate-400 space-y-1">
-        <li>每周上传进展，生成“下一步优先事项”。</li>
-        <li>每日课前提醒，避免缺勤。</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<!-- Essay 写作五步法 -->
-<section id="writing-method" class="mb-16">
-  <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center fade-in-on-scroll">
-    <i class="fas fa-pen-nib mr-3 text-blue-500"></i>二、Essay 写作五步法
-  </h2>
-  <div class="space-y-6">
-    <div class="content-card bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 fade-in-on-scroll">
-      <h3 class="text-lg font-bold text-blue-600 mb-2">第一步：理解任务</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400">上传题目，提问：“我该写什么？”</p>
-    </div>
-    <div class="content-card bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 fade-in-on-scroll">
-      <h3 class="text-lg font-bold text-blue-600 mb-2">第二步：构思结构</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400">让 <span class="notebooklm-mention">NotebookLM</span><i class="fas fa-robot notebooklm-mention"></i> 生成大纲并补充建议。</p>
-    </div>
-    <div class="content-card bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 fade-in-on-scroll">
-      <h3 class="text-lg font-bold text-blue-600 mb-2">第三步：撰写初稿</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400">写出主干，聚焦论点，不求完美。</p>
-    </div>
-    <div class="content-card bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 fade-in-on-scroll">
-      <h3 class="text-lg font-bold text-blue-600 mb-2">第四步：优化修改</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400">上传初稿，询问逻辑与语言表达改进建议。</p>
-    </div>
-    <div class="content-card bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 fade-in-on-scroll">
-      <h3 class="text-lg font-bold text-blue-600 mb-2">第五步：最终检查</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400">请求系统进行最终润色与逻辑校验。</p>
-    </div>
-  </div>
-</section>
-
-<!-- 每周学习计划表 -->
-<section id="weekly-plan" class="mb-16">
-  <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center fade-in-on-scroll">
-    <i class="fas fa-calendar-alt mr-3 text-blue-500"></i>三、每周学习计划
-  </h2>
-  <div class="bg-white dark:bg-slate-900 rounded-xl shadow-lg overflow-hidden fade-in-on-scroll">
-    <div class="overflow-x-auto responsive-table">
-      <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
-        <thead class="bg-slate-100 dark:bg-slate-800">
-          <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase">时间</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase">学习内容</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase">NotebookLM 用法</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
-          <tr>
-            <td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">周一~五 晚上</td>
-            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">常规作业（英语、历史）</td>
-            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">自动提醒任务进度</td>
-          </tr>
-          <tr class="bg-slate-50 dark:bg-slate-800/40">
-            <td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">周六 上午</td>
-            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">集中复习线性代数</td>
-            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">错题分析 + 概念回顾</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">周六 下午</td>
-            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">游戏项目推进</td>
-            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">上传项目文件获取建议</td>
-          </tr>
-          <tr class="bg-slate-50 dark:bg-slate-800/40">
-            <td class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">周日</td>
-            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">一周总结与计划</td>
-            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">生成复盘总结报告</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+    <!-- 插入核心内容：学科卡片、写作五步法、学习表格 -->
+    <!-- ✅ 请继续复制上个回答中提供的完整内容（学科框架 + 写作五步法 + 每周计划）粘贴在这里 -->
 
   </main>
 
@@ -248,45 +99,44 @@
 
   <script>
     const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
 
     function setTheme(theme) {
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');
-        themeToggleDarkIcon.classList.remove('hidden');
-        themeToggleLightIcon.classList.add('hidden');
+        darkIcon.classList.remove('hidden');
+        lightIcon.classList.add('hidden');
         localStorage.theme = 'dark';
       } else {
         document.documentElement.classList.remove('dark');
-        themeToggleLightIcon.classList.remove('hidden');
-        themeToggleDarkIcon.classList.add('hidden');
+        lightIcon.classList.remove('hidden');
+        darkIcon.classList.add('hidden');
         localStorage.theme = 'light';
       }
     }
 
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      themeToggleDarkIcon.classList.remove('hidden');
+    if (localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      darkIcon.classList.remove('hidden');
     } else {
-      themeToggleLightIcon.classList.remove('hidden');
+      lightIcon.classList.remove('hidden');
     }
 
     themeToggleBtn?.addEventListener('click', () => {
-      const isDarkMode = document.documentElement.classList.contains('dark');
-      setTheme(isDarkMode ? 'light' : 'dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
     });
 
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    const animatedElements = document.querySelectorAll('.fade-in-on-scroll');
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
       });
     }, { threshold: 0.1 });
-    animatedElements.forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.fade-in-on-scroll').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
